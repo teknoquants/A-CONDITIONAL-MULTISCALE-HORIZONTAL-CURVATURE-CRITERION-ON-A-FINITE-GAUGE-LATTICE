@@ -1,0 +1,115 @@
+
+=== Definitions 1-8 ===
+  [PASS] D1 orthonormal basis of su(N) for -Tr(XY), N = 2..5
+  [PASS] D2 gauge action is a group action and preserves Wilson loops (SU(2), SU(3))
+  [PASS] D3 P_t: semigroup, positivity, constants, Haar integral
+  [PASS] D3 edge-wise heat-kernel convolution: P_t F(U_p) = exp(4t Laplacian)F(U_p) (Monte Carlo, 4 edges)  (chi_2: -1.1875 vs -1.1884 ± 0.0009; chi_3: 0.7385 vs 0.7411 ± 0.0018)
+  [PASS] D4-D6 V_0 = S, mu_t is a probability measure, Q_t = Q_{0,t}  (max |mu_t(1) - 1| = 4.4e-16)
+  [PASS] D7 constant kappa > 0 gives C_kappa = 1/kappa
+  [PASS] D8 |grad x|^2 = (1-x^2)/2, radial metric 2 dtheta^2, Laplacian chi_{n+1} = -(n(n+2)/2) chi_{n+1}
+  [PASS] D8 density 1 + a x positive iff |a| < 1
+  -> Definitions: 8/8 checks passed
+
+=== Lemma 1 - geometry and gauge invariance ===
+  [PASS] (i) Ric = -B/4 = (N/2)<.,.>  (N=2: 1e-14; N=3: 3e-14; N=4: 9e-14; N=5: 1e-13; N=6: 2e-13)
+  [PASS] (ii) the metric is bi-invariant, so the gauge action is by isometries
+  [PASS] (ii) the heat kernel is central, so P_t commutes with left and right translations
+  [PASS] (iii) grad f is orthogonal to the gauge orbit, including points with nontrivial stabilizer  (SU(2) random: 5e-11 (|grad| = 3.13); SU(2) identity (maximal stabilizer): 0e+00 (|grad| = 0.00); SU(2) diagonal (stabilizer contains the maximal torus): 1e-10 (|grad| = 1.44); SU(3) random: 4e-11 (|grad| = 2.41); SU(3) diagonal (stabilizer contains the maximal torus): 2e-11 (|grad| = 2.52))
+  -> Lemma 1: 4/4 checks passed
+
+=== Lemma 2 - flow identities ===
+  [PASS] (a) symbolic: Laplacian e^-V = e^-V (|grad V|^2 - Laplacian V)
+  [PASS] (b) symbolic: z^-1 Laplacian(zu) - (Laplacian z/z) u = Laplacian u + 2<grad log z, grad u>
+  [PASS] (i) dV_t/dt = Laplacian V_t - |grad V_t|^2 and z_t > 0  (max rel residual 4.4e-07)
+  [PASS] (ii) Q_{s,t}1 = 1, positivity, composition, int Q_{s,t} a dmu_t = int a dmu_s  (max error 1.4e-13)
+  [PASS] (iii) d/dt Q_{s,t} f = L_t Q_{s,t} f  (max rel residual 2.5e-07)
+  [PASS] (iii) d/ds Q_{s,t} f = -Q_{s,t} L_s f  (max rel residual 1.7e-07)
+  -> Lemma 2: 6/6 checks passed
+
+=== Lemma 3 - gradient estimate ===
+  [PASS] (a) symbolic Bochner identity with Ric = 1 and the factor 2 on Hess V
+  [PASS] (b) symbolic chain rule for w = sqrt(|grad G|^2 + eps)
+  [PASS] (c) symbolic: |grad|grad G|^2|^2 = 4|Hess G(grad G)|^2, and the gap to 4|Hess G|^2|grad G|^2 is a square
+  [PASS] (d) L_r w_r >= [<grad G, grad L_r G> + (Ric + 2 Hess V_r)(grad G, grad G)]/w_r  (max violation 0.0e+00)
+  [PASS] (e) exp(Lambda(r)) Q_{r,t}|grad Q_{0,r} f| is non-increasing in r  (max relative increase 0.0e+00)
+  [PASS] (f) |grad Q_t f| <= exp(-Lambda(t)) Q_t|grad f| pointwise  (max relative excess 0.0e+00; kappa negative on some scales for 6 of 7 actions)
+  [PASS] (f) |grad Q_t f|^2 <= exp(-2 Lambda(t)) Q_t|grad f|^2 pointwise  (max relative excess 0.0e+00)
+  [PASS] (g) Jensen (Q_t phi)^2 <= Q_t(phi^2)  (max excess 0.0e+00)
+  [PASS] (h) control: with kappa = 1.25 in the free case the estimate is violated (as it must be)  (relative excess 0.031)
+  -> Lemma 3: 9/9 checks passed
+
+=== Lemma 4 - dissipation identity ===
+  [PASS] (a) integrations by parts on the compact manifold  (max error 2.7e-07)
+  [PASS] (b) -(d/dt) int (Q_t f)^2 dmu_t = 2 int |grad Q_t f|^2 dmu_t  (max rel residual 2.6e-07)
+  [PASS] (c) integrated form on [0, T]  (max rel error 6.9e-05)
+  -> Lemma 4: 3/3 checks passed
+
+=== Theorem 5 and Corollary 6 - the criterion and the free action ===
+      free: C_kappa=1, optimal=0.6667, max Var/(C E)=0.667, min kappa=1.00
+      1+0.6x: C_kappa=1.965, optimal=0.6088, max Var/(C E)=0.310, min kappa=-0.50
+      1-0.9x: C_kappa=8.696, optimal=0.5323, max Var/(C E)=0.061, min kappa=-8.00
+      Wilson beta=1: C_kappa=6.552, optimal=0.5271, max Var/(C E)=0.080, min kappa=-1.05
+      Wilson beta=2: C_kappa=221.9, optimal=0.3278, max Var/(C E)=0.001, min kappa=-4.48
+      double well 2x^2: C_kappa=5.187, optimal=0.3698, max Var/(C E)=0.071, min kappa=-3.00
+      cubic: C_kappa=3.297, optimal=0.9316, max Var/(C E)=0.282, min kappa=-1.61
+  [PASS] (a) Q_T f -> mean, mu_T -> Haar, second moment -> mean^2
+  [PASS] (b) Var_mu(f) = 2 int_0^infty int |grad Q_t f|^2 dmu_t dt
+  [PASS] (c) Var <= C_kappa * Dirichlet energy for 200 random class functions per action
+  [PASS] (d) optimal Poincare constant on class functions <= C_kappa for every action
+  [PASS] (e) kappa(t) < 0 on some scales, yet C_kappa finite  (actions: 1+0.6x, 1-0.9x, Wilson beta=1, Wilson beta=2, double well 2x^2, cubic)
+  [PASS] (f) C_horizontal <= C_full-Hessian
+  [PASS] (g) free action: V_t = 0, kappa = N/2, C = 2/N  (SU(2) numerical C = 1.00000010)
+  [PASS] (h) sharp constant N/(N^2-1) < 2/N; SU(2) optimal constant on class functions = 2/3
+  -> Theorem 5 / Corollary 6: 8/8 checks passed
+
+=== Proposition 7 - one SU(2) loop, exact ===
+  [PASS] (i) P_t w = 1 + a exp(-3t/2) x and V_t = -log(1 + b(t) x)
+  [PASS] (ii) symbolic: V'' = b(x+b)/(1+bx)^2 and its x-derivative
+  [PASS] (ii) inf of 2 Hess V on the radial vector = -|b|/(1-|b|), attained at x = -sgn(b), all |b| < 1  (max error 1.4e-14)
+  [PASS] (ii) isotropy at U = +-1: tangential and radial Hessian eigenvalues coincide
+  [PASS] (iii) kappa(t) = 1 - |b|/(1-|b|) is the optimal horizontal bound; sign at 0; zero at t* = (2/3)ln(2|a|)  (max |numerical - formula| = 5.6e-06; t*(0.6) = 0.121548)
+  [PASS] (iv) symbolic: d/ds (2/3) ln(1 - b(s)) = b/(1-b), so int_0^t b/(1-b) = (2/3) ln[(1-b(t))/(1-a)]
+  [PASS] (iv) exp(-2 Lambda) closed form, Euler integral, and C(a) = (1-|a|)^(-4/3) 2F1(-4/3,4/3;7/3;|a|)  (max error 5.43e-15)
+  [PASS] (iv) closed form agrees with the generic numerical flow  (a=0.3: 1.254780 vs 1.254780; a=0.6: 1.964815 vs 1.964815; a=-0.9: 8.696154 vs 8.696156)
+  [PASS] (v) C(0) = 1, C(0.6) = 1.964815, limit constant Gamma(7/3)^2/Gamma(11/3) = 0.353328, C(-a) = C(a)  (C(0.6) = 1.96481549178, limit = 0.3533277501)
+  -> Proposition 7: 9/9 checks passed
+
+=== Proposition 8 - comparison of bounds ===
+  [PASS] (i) single-scale: inf(Ric + Hess S) = 1 - |a|/(2(1-|a|)), positive iff |a| < 2/3, and it bounds the optimal constant  (at a = 0.6: single-scale constant 4.0000, kappa(0) = -0.50)
+  [PASS] (ii) Holley-Stroock: optimal <= (2/3)(1+|a|)/(1-|a|)
+  [PASS] (iii) C(a) finite, >= optimal constant, and ~ 0.3533 (1-|a|)^(-4/3)
+  [PASS] table: all 36 printed entries; multiscale < single-scale; optimal decreasing; Holley-Stroock wins at 0.99  (multiscale/optimal 0: 1/0.6667; 0.3: 1.2548/0.6526; 0.5: 1.6217/0.6269; 0.6: 1.9648/0.6088; 0.667: 2.3259/0.5947; 0.8: 3.9214/0.5615; 0.9: 8.6962/0.5323; 0.95: 20.509/0.5165; 0.99: 166.21/0.5033)
+  -> Proposition 8: 4/4 checks passed
+
+=== Remark 9 and Appendix A - Wilson action; the script ===
+      beta=0.1: C=1.127, min kappa=0.80, optimal=0.6649
+      beta=0.25: C=1.38, min kappa=0.50, optimal=0.6557
+      beta=0.5: C=2.078, min kappa=0.00, optimal=0.6251
+      beta=1.0: C=6.552, min kappa=-1.05, optimal=0.5271
+      beta=2.0: C=221.9, min kappa=-4.48, optimal=0.3278
+      beta=3.0: C=1.737e+04, min kappa=-10.20, optimal=0.2080
+      beta=4.0: C=1.882e+06, min kappa=-18.44, optimal=0.1460
+  [PASS] (a) kappa(0) = 1 - 2 beta; single-scale constant 1/(1-beta) for beta < 1 only
+  [PASS] (b) table reproduced by independent code
+  [PASS] (c) multiscale constant stable under refinement of the scale grid
+  [PASS] (d) exponential growth of the constant, decreasing optimal constant, multiscale > single-scale for beta <= 1/2  (growth per unit beta: 34x, 78x, 108x)
+  [PASS] (e) optimal constant <= multiscale constant (Theorem 5 for the Wilson action)
+  [PASS] (f) Appendix A: gauge_criterion.py runs and prints the quoted numbers  (a=0 C=1 Var=0.25390625 C*energy=0.390625 |  gradient excess=0 dissipation residual=1.49e-10 | a=0.6 C=1.96481549 Var=0.25015625 C*energy=0.841186632 |  gradient excess=0 dissipation residual=2.85e-10)
+  -> Remark 9 / Appendix A: 6/6 checks passed
+
+=== Summary ===
+  PASS  Definitions 1-8  (1.9 s)
+  PASS  Lemma 1 - geometry and gauge invariance  (0.1 s)
+  PASS  Lemma 2 - flow identities  (0.1 s)
+  PASS  Lemma 3 - gradient estimate  (4.8 s)
+  PASS  Lemma 4 - dissipation identity  (3.8 s)
+  PASS  Theorem 5 and Corollary 6 - the criterion and the free action  (12.3 s)
+  PASS  Proposition 7 - one SU(2) loop, exact  (2.1 s)
+  PASS  Proposition 8 - comparison of bounds  (0.2 s)
+  PASS  Remark 9 and Appendix A - Wilson action; the script  (10.9 s)
+
+Not validated: hypothesis (H) for any interacting lattice action on more than one loop; any bound uniform in
+the lattice (Remark 10); the novelty of Theorem 5. Theorem 5 and Lemmas 2-4 are stated for SU(N)^E on any
+finite graph; their numerical checks are on one SU(2) loop, where gauge-invariant functions are class
+functions, plus symbolic identities and matrix-level checks for N up to 6. Passing these checks supports the
+proofs; it does not replace them.
